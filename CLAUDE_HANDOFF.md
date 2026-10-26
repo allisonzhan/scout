@@ -9,7 +9,7 @@ Workspace: C:\Users\allis\OneDrive\Documents\ChatGPT\scout
 Remote: https://github.com/allisonzhan/scout.git
 Branch: codex/scout-mvp
 Git identity: Allison <allison07lunch@gmail.com>
-Initial backend commit: 879caf1. Use git log for subsequent UI/documentation commits and git status for the current state.
+Delivery commits: 879caf1 (backend) and e7298aa (UI, documentation and reliability). Both were pushed to origin/codex/scout-mvp. Use git log for this handoff-finalization commit and git status for current state.
 Original complete PRD: C:\Users\allis\.codex\attachments\2e580c38-2913-4fc4-be8b-2f8adc72d2a6\Pasted text.txt
 Approved plan: IMPLEMENTATION_PLAN.md. Read README.md and docs/ before continuing.
 
@@ -62,6 +62,5 @@ Next priorities: expand structured profile and evidence extraction with an optio
 
 Discovery currently runs inside an HTTP request with bounded retries and partial-result persistence. Use a persistent Node deployment; durable workers must precede dependable unattended scheduling. Add shared login rate limiting and stronger identity management before multi-user or multi-instance use. Snapshot fetches all jobs; client cards are paged, but server pagination will be useful for larger datasets.
 
-## If resuming before final push completed
-Confirm final build result, commit remaining UI/docs/reliability changes under the configured identity, push codex/scout-mvp to origin, compare remote HEAD and local HEAD, and leave a clean working tree. Keep the app preview open. No public deployment or PR is required by the approved plan.
-
+## Delivery state
+Phase 1 code and documentation have been committed and pushed. Final production build succeeded. The localhost preview was restarted successfully and is available at http://127.0.0.1:3000. This final handoff update is committed separately. No public deployment or PR was requested. Continue with the next approved phase rather than redoing Phase 1.

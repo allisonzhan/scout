@@ -71,7 +71,6 @@ Fields not supplied by sources remain unknown. Availability refreshes distinguis
 
 - Approve Phase 1 as the initial implementation scope, consistent with the PRD roadmap.
 - Use the configured Git identity above unless corrected.
-- Use local PostgreSQL through Docker if access can be enabled; otherwise a user-provided PostgreSQL connection is needed. Docker exists but its API returned permission denied in this session; no database has been started.
+- Local PostgreSQL is running through Docker; access was resolved and both migrations were applied. See the handoff for the container and persistent-volume details.
 - Use PRD education and experience as onboarding suggestions for user verification; do not assume citizenship, authorization, personal contact details or exact employment dates.
 - Keep AI optional for Phase 1; provider credentials and Gmail OAuth are not required for the first discovery workflow.
-

@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+model Profile {
+  id String @id @default("owner")
+  data Json
+  updatedAt DateTime @updatedAt
+}
+model Source {
+  id String @id @default(cuid())
+  provider String
+  board String
+  company String
+  enabled Boolean @default(true)
+  lastChecked DateTime?
+  lastError String?
+  jobs JobSource[]
+  @@unique([provider, board])
+}
+model Company {
+  id String @id @default(cuid())
+  key String @unique
+  name String
+  jobs Job[]
+}
+model Job {
+  id String @id @default(cuid())
+  companyId String
+  company Company @relation(fields: [companyId], references: [id])
+  title String
+  url String @unique
+  description String
+  location String?
+  workplace String?
+  employment String?
+  compensation String?
+  postedAt DateTime?
+  deadline DateTime?
+  closed Boolean @default(false)
+  evaluation Json
+  saved Boolean @default(false)
+  notes String @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sources JobSource[]
+  overrides Override[]
+}
+model JobSource {
+  id String @id @default(cuid())
+  sourceId String
+  source Source @relation(fields: [sourceId], references: [id])
+  externalId String
+  jobId String
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  url String
+  raw Json
+  active Boolean @default(true)
+  verifiedAt DateTime @default(now())
+  @@unique([sourceId, externalId])
+}
+model Override {
+  id String @id @default(cuid())
+  jobId String
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  active Boolean @default(true)
+  classification String
+  reason String
+  createdAt DateTime @default(now())
+}
+model Run {
+  id String @id @default(cuid())
+  startedAt DateTime @default(now())
+  finishedAt DateTime?
+  status String @default("running")
+  results Json @default("[]")
+}
+model Audit {
+  id String @id @default(cuid())
+  action String
+  details String
+  createdAt DateTime @default(now())
+}
+

@@ -84,4 +84,3 @@ model Audit {
   details String
   createdAt DateTime @default(now())
 }
-

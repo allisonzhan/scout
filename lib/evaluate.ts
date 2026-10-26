@@ -90,7 +90,22 @@ export function evaluate(
       unknowns.push("Graduation year has not been supplied.");
     else {
       const end = Number(grad[2] || grad[1]);
-      if (p.graduationYear < Number(grad[1]) || p.graduationYear > end)
+      const lowerBound = /after|no earlier than|not before/i.test(grad[0]);
+      const upperBound =
+        !lowerBound && /before|\bby\b|no later than/i.test(grad[0]);
+      if (!grad[2] && (lowerBound || upperBound)) {
+        if (
+          (lowerBound && p.graduationYear < end) ||
+          (upperBound && p.graduationYear > end)
+        )
+          fail("Graduation year conflicts with the posting's cutoff.");
+        else if (p.graduationYear === end) {
+          ambiguous = true;
+          reasons.push(
+            "Confirm your graduation month against the stated cutoff.",
+          );
+        }
+      } else if (p.graduationYear < Number(grad[1]) || p.graduationYear > end)
         fail("Graduation year conflicts with the posting.");
     }
   }

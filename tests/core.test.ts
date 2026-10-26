@@ -299,3 +299,30 @@ test("machine learning alone is not mentorship evidence", () => {
     0,
   );
 });
+test("graduation upper cutoff accepts earlier years", () => {
+  assert.notEqual(
+    evaluate(job("Must graduate before December 2027."), {
+      ...p,
+      graduationYear: 2026,
+    }).classification,
+    "Ineligible",
+  );
+});
+test("graduation cutoff with unknown month needs review", () => {
+  assert.equal(
+    evaluate(job("Must graduate before December 2027."), {
+      ...p,
+      graduationYear: 2027,
+    }).classification,
+    "Manual Review Required",
+  );
+});
+test("graduation lower cutoff accepts later years", () => {
+  assert.notEqual(
+    evaluate(job("Graduation after December 2027."), {
+      ...p,
+      graduationYear: 2028,
+    }).classification,
+    "Ineligible",
+  );
+});

@@ -139,7 +139,7 @@ export async function saveProfile(input: unknown) {
         },
       });
     },
-    { timeout: 30000 },
+    { maxWait: 15000, timeout: 60000 },
   );
 }
 export async function discover() {
